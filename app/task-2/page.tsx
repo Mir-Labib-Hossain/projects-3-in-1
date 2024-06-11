@@ -1,6 +1,5 @@
-import { ArrowLeftOutlined } from "@ant-design/icons";
-import { Button, Statistic, Table } from "antd";
-import Link from "next/link";
+import BackButton from "../..//components/BackButton";
+import { Statistic, Table } from "antd";
 
 const Task2Page = () => {
   const addVat = (price: number) => {
@@ -28,17 +27,13 @@ const Task2Page = () => {
   }));
 
   const filteredList = listWithVat.filter(({ priceWithVat }) => priceWithVat > 50);
-
+  
   const totalPrice = filteredList.reduce((total, { price }) => total + price, 0);
-  const totalPriceWithVat = filteredList.reduce((total, { priceWithVat}) => total + priceWithVat, 0);
- 
+  const totalPriceWithVat = filteredList.reduce((total, { priceWithVat }) => total + priceWithVat, 0);
+
   return (
     <>
-      <Link href="/">
-        <Button size="large" type="primary" icon={<ArrowLeftOutlined />} className="w-fit">
-          Back
-        </Button>
-      </Link>
+      <BackButton to="/" />
       <Table dataSource={filteredList} columns={columns} rowKey="name" pagination={false} />
       <div className="grid grid-cols-3 gap-4">
         <Statistic title="Total Filtered Items" value={filteredList.length} />

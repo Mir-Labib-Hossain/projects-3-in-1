@@ -1,5 +1,15 @@
-import { IAppointment } from "@/@types/all-types";
 import { createSlice } from "@reduxjs/toolkit";
+
+interface IAppointment {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  age: number;
+  date: string;
+  slot: string;
+}
 
 interface IInitialState {
   appointmentList: IAppointment[];
@@ -22,5 +32,5 @@ const task1Slice = createSlice({
   },
 });
 
-export const { saveAppointmentList,clearAppointmentList } = task1Slice.actions;
+export const { saveAppointmentList, clearAppointmentList } = task1Slice.actions;
 export default task1Slice.reducer;

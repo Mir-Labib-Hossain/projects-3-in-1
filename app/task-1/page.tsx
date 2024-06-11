@@ -1,15 +1,12 @@
-import { ArrowLeftOutlined, FormOutlined, OrderedListOutlined } from "@ant-design/icons";
+import { FormOutlined, OrderedListOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import Link from "next/link";
+import BackButton from "../../components/BackButton";
 
 const Task1Page = () => {
   return (
     <>
-      <Link href="/">
-        <Button size="large" type="primary" icon={<ArrowLeftOutlined />} className="w-fit">
-          Back
-        </Button>
-      </Link>
+      <BackButton to="/" />
       <Link href="/task-1/appointment-form" className="w-full">
         <Button size="large" type="primary" icon={<FormOutlined />} block>
           Appointment Form

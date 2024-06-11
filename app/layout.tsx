@@ -29,7 +29,7 @@ export default function RootLayout({
             <div className="flex flex-col gap-5 w-[1200px] bg-white shadow-lg border-gray-100 border sm:rounded-3xl p-8 m-8">{children}</div>
           </div>
         </ConfigProvider>
-        ,
+        
       </body>
     </html>
   );

@@ -1,25 +1,24 @@
 "use client";
-import { IAppointment } from "@/@types/all-types";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { saveAppointmentList } from "@/redux/slices/task1Slice";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { Alert, Button, DatePicker, Form, Input, InputNumber, Modal, Select, message } from "antd";
 import dayjs from "dayjs";
-import Link from "next/link";
 import { useState } from "react";
+import BackButton from "../../../components/BackButton";
 
 const { Item } = Form;
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 6 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 14 },
-  },
-};
+interface IAppointment {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  age: number;
+  date: string;
+  slot: string;
+}
 
 const AppointmentFormPage = () => {
   const [form] = Form.useForm();
@@ -62,11 +61,7 @@ const AppointmentFormPage = () => {
 
   return (
     <>
-      <Link href="/task-1">
-        <Button size="large" type="primary" icon={<ArrowLeftOutlined />} className="w-fit">
-          Back
-        </Button>
-      </Link>
+      <BackButton to="/task-1" />
       <Form {...formItemLayout} variant="filled" {...formItemLayout} form={form} name="register" onFinish={onFinish}>
         <Item label="First Name" name="firstName" rules={[{ required: true, message: "Please input your first name!" }]}>
           <Input />
@@ -109,17 +104,17 @@ const AppointmentFormPage = () => {
           <DatePicker style={{ width: "100%" }} />
         </Item>
         <Item wrapperCol={{ offset: 6, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
             Check Slot
           </Button>
         </Item>
       </Form>
       <Modal title="Edit" centered open={isOpenSlotModal} footer={null} onCancel={closeSlotModal}>
         <Item label="Slot">
-          <Select placeholder="Select a slot" onChange={(value) => setAppointmentForm((prev) => (prev ? { ...prev, slot: value } : prev))} options={availableSlots.map((slot) => ({ label: slot, value: slot }))} />
+          <Select placeholder="Select a slot" value={appointmentForm?.slot || null} onChange={(value) => setAppointmentForm((prev) => (prev ? { ...prev, slot: value } : prev))} options={availableSlots.map((slot) => ({ label: slot, value: slot }))} />
         </Item>
-        {!!availableSlots.length ? (
-          <Button type="primary" onClick={createAppointment} disabled={!appointmentForm?.slot}>
+        {availableSlots.length > 0 ? (
+          <Button type="primary" onClick={createAppointment} disabled={!appointmentForm?.slot} block icon={<PlusOutlined />}>
             Create Appointment
           </Button>
         ) : (
@@ -132,7 +127,15 @@ const AppointmentFormPage = () => {
 
 export default AppointmentFormPage;
 
-{
-  /* <Select placeholder="Select a slot" options={appointmentList.filter(({ slot }) => !defaultSlots.includes(slot)).map((availableSlot) => ({ label: availableSlot, value: availableSlot }))} /> */
-}
 const defaultSlots = ["4:00 - 5:00", "5:00 - 6:00", "6:00 - 7:00"];
+
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 6 },
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 14 },
+  },
+};
