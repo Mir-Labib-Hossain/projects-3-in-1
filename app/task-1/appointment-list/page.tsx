@@ -1,5 +1,5 @@
-"use client"
-import { ArrowLeftOutlined, FormOutlined, OrderedListOutlined } from "@ant-design/icons";
+"use client";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import Link from "next/link";
 
@@ -7,9 +7,8 @@ import { useAppSelector } from "@/redux/hooks";
 import { Table } from "antd";
 
 const AppointmentListPage = () => {
-    const appointmentList=useAppSelector(state=>state.persisted.task1.appointmentList)
+  const appointmentList = useAppSelector((state) => state.persisted.task1.appointmentList);
   const columns = [
-    
     {
       title: "First Name",
       dataIndex: "firstName",
@@ -52,15 +51,16 @@ const AppointmentListPage = () => {
     },
   ];
 
-  return<>
-  <Link href="/task-1">
+  return (
+    <>
+      <Link href="/task-1">
         <Button size="large" type="primary" icon={<ArrowLeftOutlined />} className="w-fit">
           Back
         </Button>
       </Link>
-   <Table dataSource={appointmentList} columns={columns} />
-  </>
-   ;
+      <Table dataSource={appointmentList} columns={columns} />
+    </>
+  );
 };
 
 export default AppointmentListPage;
