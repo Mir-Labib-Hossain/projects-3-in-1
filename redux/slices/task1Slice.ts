@@ -16,8 +16,11 @@ const task1Slice = createSlice({
     saveAppointmentList: (state, { payload }: { payload: IAppointment }) => {
       state.appointmentList = [...state.appointmentList, payload];
     },
+    clearAppointmentList: (state) => {
+      state.appointmentList = [];
+    },
   },
 });
 
-export const { saveAppointmentList } = task1Slice.actions;
+export const { saveAppointmentList,clearAppointmentList } = task1Slice.actions;
 export default task1Slice.reducer;

@@ -13,12 +13,12 @@ export default function Home() {
       </Link>
       <Link href="/task-2" className="w-full">
         <Button size="large" type="primary" icon={<SearchOutlined />} block>
-          Task - 01 : 15% Vat & Sum
+          Task - 02 : 15% Vat & Sum
         </Button>
       </Link>
       <Link href="/task-3" className="w-full">
         <Button size="large" type="primary" icon={<SearchOutlined />} block>
-          Task - 01 : Movie
+          Task - 03 : Movie
         </Button>
       </Link>
     </>

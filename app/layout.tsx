@@ -1,3 +1,4 @@
+import { ConfigProvider } from "antd";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -17,9 +18,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="h-screen w-screen flex justify-center items-center bg-white">
-          <div className="flex flex-col gap-5 w-[1000px] shadow-md p-5">{children}</div>
-        </div>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: "#C71D66",
+            },
+          }}
+        >
+          <div className="min-h-screen w-screen flex justify-center items-center">
+            <div className="flex flex-col gap-5 w-[1200px] bg-white shadow-lg border-gray-100 border sm:rounded-3xl p-8 m-8">{children}</div>
+          </div>
+        </ConfigProvider>
+        ,
       </body>
     </html>
   );
