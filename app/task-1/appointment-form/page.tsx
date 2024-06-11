@@ -6,7 +6,6 @@ import { Alert, Button, DatePicker, Form, Input, InputNumber, Modal, Select, mes
 import dayjs from "dayjs";
 import { useState } from "react";
 import BackButton from "../../../components/BackButton";
-
 const { Item } = Form;
 
 interface IAppointment {
