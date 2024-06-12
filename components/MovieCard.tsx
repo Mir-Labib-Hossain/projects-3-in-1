@@ -13,9 +13,10 @@ type Props = { movie: IMovie };
 
 const MovieCard = ({ movie }: Props) => {
   const { Poster, Title, Type, Year, imdbID } = movie;
+
   return (
-    <div className="p-4 duration-500 flex flex-col my-6 text-gray-700 shadow-md gap-5 rounded-xl hover:rounded-1xl w-[210px]">
-      <div className="h-[280px] duration-500 overflow-hidden hover:rounded-xl">
+    <div className="p-4 duration-500 flex flex-col my-6 text-gray-700 shadow-md hover:shadow-2xl gap-5 rounded-xl hover:rounded-1xl w-[210px]">
+      <div className="h-[280px] duration-500 overflow-hidden hover:rounded-2xl">
         <div
           className="h-[280px] duration-1000 ease-in-out hover:scale-125 w-full bg-cover bg-no-repeat bg-center"
           style={{

@@ -1,4 +1,5 @@
 "use client";
+
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { saveAppointmentList } from "@/redux/slices/task1Slice";
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
@@ -37,17 +38,16 @@ const AppointmentFormPage = () => {
   };
 
   const onFinish = (values: IAppointment) => {
-    showSlotModal();
-
     const formattedDate = dayjs(values.date).format("DD/MM/YYYY");
+    const existingSlots = appointmentList.filter(({ date }) => date === formattedDate).map((item) => item.slot) || [];
+    const availableSlots = defaultSlots.filter((slot) => !existingSlots.includes(slot));
+
+    showSlotModal();
     setAppointmentForm({
       ...values,
       date: formattedDate,
       slot: "", // temporary empty
     });
-
-    const existingSlots = appointmentList.filter(({ date }) => date === formattedDate).map((item) => item.slot) || [];
-    const availableSlots = defaultSlots.filter((slot) => !existingSlots.includes(slot));
     setAvailableSlots(availableSlots);
   };
 
@@ -61,15 +61,13 @@ const AppointmentFormPage = () => {
   return (
     <>
       <BackButton to="/task-1" />
-      <Form {...formItemLayout} variant="filled" {...formItemLayout} form={form} name="register" onFinish={onFinish}>
+      <Form variant="outlined" layout="vertical" form={form} onFinish={onFinish}>
         <Item label="First Name" name="firstName" rules={[{ required: true, message: "Please input your first name!" }]}>
           <Input />
         </Item>
-
         <Item label="Last Name" name="lastName" rules={[{ required: true, message: "Please input your last name!" }]}>
           <Input />
         </Item>
-
         <Item
           label="Email"
           name="email"
@@ -86,28 +84,25 @@ const AppointmentFormPage = () => {
         >
           <Input />
         </Item>
-
         <Item label="Phone Number" name="phoneNumber" rules={[{ required: true, message: "Please input your phone number!" }]}>
           <Input />
         </Item>
-
         <Item label="Address" name="address" rules={[{ required: true, message: "Please input your address!" }]}>
           <Input.TextArea />
         </Item>
-
         <Item label="Age" name="age" rules={[{ required: true, message: "Please input your age!" }]}>
           <InputNumber style={{ width: "100%" }} />
         </Item>
-
         <Item label="Slot Date" name="date" rules={[{ required: true, message: "Please input a date to check available slot!" }]}>
           <DatePicker style={{ width: "100%" }} />
         </Item>
-        <Item wrapperCol={{ offset: 6, span: 16 }}>
-          <Button type="primary" htmlType="submit" icon={<SearchOutlined />}>
-            Check Slot
+        <Item>
+          <Button type="primary" htmlType="submit" icon={<SearchOutlined />} block size="large">
+            Check Available Slot
           </Button>
         </Item>
       </Form>
+
       <Modal title="Edit" centered open={isOpenSlotModal} footer={null} onCancel={closeSlotModal}>
         <Item label="Slot">
           <Select placeholder="Select a slot" value={appointmentForm?.slot || null} onChange={(value) => setAppointmentForm((prev) => (prev ? { ...prev, slot: value } : prev))} options={availableSlots.map((slot) => ({ label: slot, value: slot }))} />
@@ -127,14 +122,3 @@ const AppointmentFormPage = () => {
 export default AppointmentFormPage;
 
 const defaultSlots = ["4:00 - 5:00", "5:00 - 6:00", "6:00 - 7:00"];
-
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 6 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 14 },
-  },
-};
